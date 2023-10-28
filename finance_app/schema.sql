@@ -1,0 +1,22 @@
+DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS transactions;
+
+
+CREATE TABLE user (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  email VARCHAR(120) NOT NULL,
+  password VARCHAR(60) NOT NULL,
+  username VARCHAR(80) NOT NULL
+);
+
+CREATE TABLE transactions (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  symbol VARCHAR(10) NOT NULL,
+  shares INTEGER NOT NULL,
+  price FLOAT NOT NULL,
+  operation_name VARCHAR(10) NOT NULL,
+  user_id INTEGER NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES user (id)
+);
+
+
