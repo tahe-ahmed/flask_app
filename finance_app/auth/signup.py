@@ -1,13 +1,16 @@
-from flask import Flask, request, redirect, render_template, session, Blueprint
+from flask import request, redirect, render_template, session, Blueprint
 from finance_app.utils import apology
 from finance_app.db import get_db
 from werkzeug.security import check_password_hash, generate_password_hash
 
+signup_blueprint = Blueprint('signup', __name__, template_folder='templates', url_prefix='')
 
+@signup_blueprint.route("/signup", methods=["GET"])
 def signup_page():
     """Render the signup page."""
     return render_template("signup.html")
 
+@signup_blueprint.route("/signup", methods=["POST"])
 def signup_user():
     """Register a new user."""
     db = get_db()
@@ -27,21 +30,21 @@ def signup_user():
         return apology("your passwords don't match", 400)
 
     try:
-        db.execute(
-            "INSERT INTO user (email, username, password) VALUES (?, ?, ?)",
-            ("test@gmail.com", username, password)
-        )
-        db.commit()
+        insert_new_user(db, username, password)
     except Exception as e:
         print("exception ", e)
         return apology("username unavailable", 400)
 
-    rows = db.execute("SELECT * FROM user WHERE username = (?)", (username,)).fetchone()
+    rows = fetch_user_by_username(db, username)
     session["user_id"] = rows["id"]
     return redirect("/")
-    
-    
-signup_blueprint = Blueprint('signup', __name__, template_folder='templates', url_prefix='')
 
-signup_blueprint.route("/signup", methods=["POST"])(signup_user)
-signup_blueprint.route("/signup", methods=["GET"])(signup_page)
+def insert_new_user(db, username, password):
+    db.execute(
+        "INSERT INTO user (email, username, password) VALUES (?, ?, ?)",
+        ("test@gmail.com", username, password)
+    )
+    db.commit()
+
+def fetch_user_by_username(db, username):
+    return db.execute("SELECT * FROM user WHERE username = (?)", (username,)).fetchone()

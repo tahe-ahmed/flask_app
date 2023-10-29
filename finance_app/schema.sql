@@ -4,9 +4,10 @@ DROP TABLE IF EXISTS transactions;
 
 CREATE TABLE user (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  email VARCHAR(120) NOT NULL,
+  email VARCHAR(120),
   password VARCHAR(60) NOT NULL,
-  username VARCHAR(80) NOT NULL
+  username VARCHAR(80) NOT NULL,
+  cash FLOAT DEFAULT 10000.0
 );
 
 CREATE TABLE transactions (
@@ -16,6 +17,7 @@ CREATE TABLE transactions (
   price FLOAT NOT NULL,
   operation_name VARCHAR(10) NOT NULL,
   user_id INTEGER NOT NULL,
+  timestamp DATETIME DEFAULT CURRENT_TIMESTAMP, 
   FOREIGN KEY (user_id) REFERENCES user (id)
 );
 

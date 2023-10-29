@@ -4,6 +4,8 @@ from flask_session import Session
 from finance_app.auth import login, logout, signup
 from finance_app.home import index
 from finance_app.db import init_app
+from finance_app.quote import quote
+from finance_app.transactions import buy, history
 
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
@@ -15,13 +17,12 @@ def create_app(test_config=None):
 def configure_app(app, test_config):
     # Configure the app using environment variables or defaults
     app.config.from_mapping(
-        SECRET_KEY=os.environ.get('SECRET_KEY', 'dev'),  # Use SECRET_KEY from environment variable or default to 'dev'
         DATABASE=os.path.join(app.instance_path, 'flask_app.sqlite'),
     )
     
-    if test_config is not None:
-        # Load test configuration if provided
-        app.config.from_mapping(test_config)
+    # if test_config is not None:
+    #     # Load test configuration if provided
+    #     app.config.from_mapping(test_config)
 
     try:
         os.makedirs(app.instance_path)
@@ -44,7 +45,10 @@ def register_blueprints(app):
     app.register_blueprint(login.login_blueprint)
     app.register_blueprint(logout.logout_blueprint)
     app.register_blueprint(signup.signup_blueprint)
-    app.register_blueprint(index.index_blueprint)
+    app.register_blueprint(quote.quote_blueprint)
+    app.register_blueprint(buy.buy_blueprint)
+    app.register_blueprint(history.history_blueprint)
+    app.register_blueprint(index.portfolio_blueprint)
 
 if __name__ == "__main__":
     app = create_app()
