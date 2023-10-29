@@ -21,15 +21,14 @@
 
 **Additional Features:**
 🆕 1. As an investor, I want to receive notifications or alerts when significant stock events occur, such as price changes or news related to my holdings.
+
 🆕 2. As an investor, I want to be able to set up preferences for email or SMS notifications about my account and stock market updates.
+
 🆕 3. As an investor, I want access to a customer support section or chat to get assistance or resolve any issues I encounter.
+
 🆕 4. As an investor, I want to provide feedback or suggestions for improving the app to enhance my user experience.
 
 ## Thoughts and process around implementing the app
-
-This is my first time working with both Vue and Tailwind. What I like about Vue is that the process of starting up the app was super smooth with CLI, also the main concepts are pretty understandable for the newcomers into the world of Vue. What I like about the Tailwind is that it saved me from writing the custom css myself in all places except custom background gradient. It can become a bit convoluted though in the template itself when there are a lot of classes on the element.
-
-In total, I've spent a good working day (8hours) on the assignment, which was cool to me, because of all the new things that I explored. I've started with thinking about functionality, the app as a whole and drawing some mockups in my notebook. The vue app initialization and the following steps can be seen in the commits history.
 
 ## Project Setup
 
