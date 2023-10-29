@@ -23,6 +23,7 @@
 ⏳ 1. As an investor, I want to view a history of all my buy and sell operations, including the date and transaction details, so that I can track my investment activities.
 
 **Portfolio Overview:**
+
 🆕 1. As an investor, I want to see a homepage that displays a summary of my current stock holdings, including the stock names, quantities, and their current market values.
 
 **Additional Features:**
