@@ -5,21 +5,28 @@
 **User Registration and Login:**
 
 ✅ 1. As a new investor, I want to be able to register for the finance app so that I can create an account.
+
 ✅ 2. As a registered investor, I want to be able to log in to my account securely.
+
 ✅ 3. As a registered investor, I want to be able to log out of my account to ensure security.
 
 **Stock Trading:**
+
 ✅ 1. As an investor, I want to be able to buy stocks, specifying the stock symbol and the quantity, so that I can invest in the stock market.
+
 ✅ 2. As an investor, I want to be able to sell my stocks, specifying the stock symbol and the quantity, to liquidate my investments.
+
 ✅ 3. As an investor, I want to see real-time quotes for the current stock prices to make informed buying and selling decisions.
 
 **Transaction History:**
+
 ⏳ 1. As an investor, I want to view a history of all my buy and sell operations, including the date and transaction details, so that I can track my investment activities.
 
 **Portfolio Overview:**
 🆕 1. As an investor, I want to see a homepage that displays a summary of my current stock holdings, including the stock names, quantities, and their current market values.
 
 **Additional Features:**
+
 🆕 1. As an investor, I want to receive notifications or alerts when significant stock events occur, such as price changes or news related to my holdings.
 
 🆕 2. As an investor, I want to be able to set up preferences for email or SMS notifications about my account and stock market updates.
