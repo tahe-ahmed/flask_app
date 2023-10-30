@@ -4,8 +4,7 @@ from flask_session import Session
 from finance_app.auth import login, logout, signup
 from finance_app.home import index
 from finance_app.db import init_app
-from finance_app.transactions import quote
-from finance_app.transactions import buy, history
+from finance_app.transactions import buy, history, quote, sell
 from finance_app.config import config_db
 
 def create_app(test_config=None):
@@ -46,6 +45,7 @@ def register_blueprints(app):
     app.register_blueprint(signup.signup_blueprint)
     app.register_blueprint(quote.quote_blueprint)
     app.register_blueprint(buy.buy_blueprint)
+    app.register_blueprint(sell.sell_blueprint)
     app.register_blueprint(history.history_blueprint)
     app.register_blueprint(index.portfolio_blueprint)
 

@@ -9,8 +9,8 @@
         <div class="form-group">
             <select class="form-control" name="symbol">
                 <option disabled value="" selected>Symbol</option>
-                {% for stock in stocks %}
-                <option value="{{ stock['symbol'] }}"> {{ stock["symbol"] }}</option>
+                {% for symbol in symbols %}
+                <option value="{{ symbol }}"> {{ symbol }}</option>
                 {% endfor %}
             </select>
         </div>

@@ -4,4 +4,6 @@ instance
 finance_app/__pycache__
 finance_app/auth/__pycache__
 finance_app/home/__pycache__
+finance_app/transactions/__pycache__
 finance_app/.env
+flask_session
