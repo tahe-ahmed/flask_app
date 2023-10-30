@@ -16,13 +16,13 @@
     </tr>
   </thead>
   <tbody>
-    {% for stock in stocks %}
+    {% for symbol, stock_data in stocks.items() %}
         <tr>
-            <td>{{stock.symbol}}</td>
-            <td>{{stock.name}}</td>
-            <td>{{stock.shares}}</td>
-            <td>{{stock.price}}</td>
-            <td>{{stock.total}}</td>
+            <td>{{ symbol }}</td>
+            <td>tahe</td>
+            <td>{{ stock_data['shares'] }}</td>
+            <td>{{ stock_data['price_per_share'] }}</td>
+            <td>{{ stock_data['total_price'] }}</td>
         </tr>
     {% endfor %}
     <tr>
