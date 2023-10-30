@@ -4,8 +4,9 @@ from flask_session import Session
 from finance_app.auth import login, logout, signup
 from finance_app.home import index
 from finance_app.db import init_app
-from finance_app.quote import quote
+from finance_app.transactions import quote
 from finance_app.transactions import buy, history
+from finance_app.config import config_db
 
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
@@ -16,18 +17,16 @@ def create_app(test_config=None):
 
 def configure_app(app, test_config):
     # Configure the app using environment variables or defaults
-    app.config.from_mapping(
-        DATABASE=os.path.join(app.instance_path, 'flask_app.sqlite'),
-    )
+    config_db(app)
     
     # if test_config is not None:
     #     # Load test configuration if provided
     #     app.config.from_mapping(test_config)
 
-    try:
-        os.makedirs(app.instance_path)
-    except OSError:
-        pass
+    # try:
+    #     os.makedirs(app.instance_path)
+    # except OSError:
+    #     pass
 
     # Initialize the database
     init_app(app)
@@ -52,4 +51,5 @@ def register_blueprints(app):
 
 if __name__ == "__main__":
     app = create_app()
+    app.app_context()
     app.run()

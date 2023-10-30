@@ -1,6 +1,7 @@
 from flask import request, redirect, render_template, session, Blueprint
 from finance_app.utils import apology
 from finance_app.db import get_db
+from werkzeug.security import check_password_hash
 
 login_blueprint = Blueprint('login', __name__, template_folder='templates', url_prefix='')
 
@@ -25,7 +26,7 @@ def login_user():
 
     rows = fetch_user_by_username(db, username)
 
-    if not rows or rows["password"] != password:
+    if not rows or not check_password_hash(rows["password"], password):
         return apology("invalid username and/or password", 403)
 
     session["user_id"] = rows["id"]

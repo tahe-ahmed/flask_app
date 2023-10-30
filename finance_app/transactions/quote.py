@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, render_template, session, Blueprint
+from flask import request, render_template, Blueprint
 from finance_app.utils import apology, lookup, usd, login_required
 
 quote_blueprint = Blueprint('quote', __name__, template_folder='templates', url_prefix='')

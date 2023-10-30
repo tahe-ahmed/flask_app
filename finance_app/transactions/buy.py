@@ -1,5 +1,5 @@
 from flask import request, redirect, render_template, session, Blueprint
-from finance_app.utils import apology, lookup, usd, login_required
+from finance_app.utils import apology, lookup, login_required
 from finance_app.db import get_db
 
 buy_blueprint = Blueprint('buy', __name__, template_folder='templates', url_prefix='')

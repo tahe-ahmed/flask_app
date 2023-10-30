@@ -1,9 +1,15 @@
 # config.py
+import os
 from os import getenv
 from dotenv import load_dotenv
+from flask import current_app, g
+
+
 load_dotenv()
 
 API_KEY = getenv("API_KEY", None)
 
-# use the key
-# print(API_KEY)
+def config_db(app): 
+    app.config.from_mapping(
+        DATABASE=os.path.join(app.instance_path, 'flask_app.sqlite'),
+    )

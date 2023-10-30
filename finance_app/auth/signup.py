@@ -1,7 +1,7 @@
 from flask import request, redirect, render_template, session, Blueprint
 from finance_app.utils import apology
 from finance_app.db import get_db
-from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.security import generate_password_hash
 
 signup_blueprint = Blueprint('signup', __name__, template_folder='templates', url_prefix='')
 
@@ -42,7 +42,7 @@ def signup_user():
 def insert_new_user(db, username, password):
     db.execute(
         "INSERT INTO user (email, username, password) VALUES (?, ?, ?)",
-        ("test@gmail.com", username, password)
+        ("test@gmail.com", username, generate_password_hash(password))
     )
     db.commit()
 

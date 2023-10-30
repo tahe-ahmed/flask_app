@@ -1,4 +1,4 @@
-from flask import redirect, session, Blueprint
+from flask import redirect, Blueprint
 from finance_app.utils import clear_session
 
 logout_blueprint = Blueprint('logout', __name__, template_folder='templates', url_prefix='')

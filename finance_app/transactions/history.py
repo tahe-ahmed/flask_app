@@ -1,4 +1,4 @@
-from flask import request, redirect, render_template, session, Blueprint
+from flask import render_template, session, Blueprint
 from finance_app.utils import login_required
 from finance_app.db import get_db
 
