@@ -108,3 +108,11 @@ def add_transaction(db, symbol, shares, price, operation_name):
 def get_user_cash(db):
     result = db.execute("SELECT cash FROM user WHERE id = ?", (int(session['user_id']),)).fetchone()
     return result[0] if result else None
+
+def get_user_transactions(db, user_id, operation_name):
+    query = """
+        SELECT symbol, shares, price
+        FROM transactions
+        WHERE user_id = ? AND operation_name = ?
+    """
+    return db.execute(query, (user_id, operation_name)).fetchall()

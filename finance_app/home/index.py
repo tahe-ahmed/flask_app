@@ -1,40 +1,26 @@
 from flask import Blueprint, render_template, session
 from finance_app.db import get_db
-from finance_app.utils import login_required, usd
+from finance_app.utils import login_required, usd, get_user_transactions, get_user_cash
 
-portfolio_blueprint = Blueprint('portfolio', __name__, template_folder='templates', url_prefix='')
+index_blueprint = Blueprint('index', __name__, template_folder='templates', url_prefix='')
 
-INITIAL_CASH = 10000
+TOTAL_CASH = 10000
 
-@portfolio_blueprint.route("/")
+@index_blueprint.route("/")
 @login_required
-def show_portfolio():
+def index():
     db = get_db()
 
-    # Retrieve buy and sell transactions
     buy_transactions = get_user_transactions(db, session['user_id'], 'BUY')
     sell_transactions = get_user_transactions(db, session['user_id'], 'SELL')
 
-    # Calculate total holdings
     total_holdings = calculate_holdings(buy_transactions, sell_transactions)
+    
+    total_holdings = formate_stock_total_price(total_holdings)
 
-    # Calculate available cash
-    # we can use get_user_cash here
-    available_cash = calculate_available_cash(INITIAL_CASH, total_holdings)
+    available_cash = get_user_cash(db)
 
-    return render_template("index.html", stocks=total_holdings, available_cash=usd(available_cash), cash=usd(INITIAL_CASH))
-
-
-# Pure function
-def get_user_transactions(db, user_id, operation_name):
-    query = """
-        SELECT symbol, shares, price
-        FROM transactions
-        WHERE user_id = ? AND operation_name = ?
-    """
-    return db.execute(query, (user_id, operation_name)).fetchall()
-
-
+    return render_template("index.html", stocks=total_holdings, available_cash=usd(available_cash), cash=usd(TOTAL_CASH))
 
 # This is a pure function 
 def calculate_holdings(buy_transactions, sell_transactions):
@@ -53,19 +39,14 @@ def calculate_holdings(buy_transactions, sell_transactions):
             symbol_totals[symbol]['shares'] -= shares
             symbol_totals[symbol]['total_price'] -= shares * price
 
-    # Filter out stocks with zero shares
     symbol_totals = {symbol: data for symbol, data in symbol_totals.items() if data['shares'] > 0}
-    
-    for data in symbol_totals.values():
-        data['total_price'] = usd(data['total_price'])
     
     return symbol_totals
 
-def calculate_available_cash(initial_cash, holdings):
-    
-    # query DB for the current user cash it should be equ
-    
-    
-    
-    used_cash = sum( float(data['total_price'][1:]) for data in holdings.values())
-    return initial_cash - used_cash
+# Is this pure function ??
+def formate_stock_total_price(holdings):
+    holdings_formated = holdings
+    for data in holdings_formated.values():
+        data['total_price'] = usd(data['total_price'])
+        
+    return holdings_formated

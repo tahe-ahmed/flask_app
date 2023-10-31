@@ -17,9 +17,9 @@ def handle_buy_post():
     symbol = request.form.get("symbol")
     shares = int(request.form.get("shares"))
     
-    lookup_result = lookup_iex_api(symbol)
+    iex_api_data = lookup_iex_api(symbol)
     
-    if lookup_result is None:
+    if iex_api_data is None:
         return apology("Invalid symbol", 400)
     
     current_cash = get_user_cash(db)
@@ -27,14 +27,14 @@ def handle_buy_post():
     if not is_valid_shares(shares) or not current_cash:
         return apology("Invalid input", 400)
 
-    value = lookup_result["price"] * int(shares)
+    value = iex_api_data["price"] * int(shares)
     
     if not has_enough_cash(current_cash, value):
         return apology("You don't have enough money to proceed", 403)
 
     update_cash(db, value, "SUBTRACT")
 
-    add_transaction(db, lookup_result['symbol'], shares, lookup_result['price'], "BUY")
+    add_transaction(db, iex_api_data['symbol'], shares, iex_api_data['price'], "BUY")
     
     return redirect("/")
 

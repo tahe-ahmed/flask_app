@@ -1,5 +1,5 @@
 from flask import request, redirect, render_template, session, Blueprint
-from finance_app.utils import apology, login_required, get_current_stock_info, update_cash, has_enough_shares, add_transaction
+from finance_app.utils import apology, login_required, get_current_stock_info, update_cash, has_enough_shares, add_transaction, get_user_transactions
 from finance_app.db import get_db
 
 sell_blueprint = Blueprint('sell', __name__, template_folder='templates', url_prefix='')
@@ -33,18 +33,9 @@ def handle_sell_post():
 
 def render_sell_form():
     db = get_db()
-    # get the current user symbols
-    query = """
-        SELECT symbol, shares, price
-        FROM transactions
-        WHERE user_id = ?
-    """
-    stocks = db.execute(query, (int(session['user_id']),)).fetchall()   
     
-    unique_symbol_list = []
-
-    for stock in stocks:
-        if stock["symbol"] not in unique_symbol_list:
-            unique_symbol_list.append(stock["symbol"])
+    stocks = get_user_transactions(db, int(session['user_id']), "BUY")
     
-    return render_template("sell.html", symbols = unique_symbol_list)
+    symbols = set(stock["symbol"] for stock in stocks)
+    
+    return render_template("sell.html", symbols = symbols)

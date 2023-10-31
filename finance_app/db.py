@@ -39,3 +39,5 @@ def close_db(e=None):
 
     if db is not None:
         db.close()
+        
+# "Some of the code in this file was inspired by a Flask SQLite connection tutorial."

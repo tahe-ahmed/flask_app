@@ -13,17 +13,18 @@ def quote():
 
 def handle_quote_post():
     symbol = request.form.get("symbol")
-    lookup_result = lookup_iex_api(symbol)
+    iex_api_data = lookup_iex_api(symbol)
     
-    if lookup_result is None:
+    if iex_api_data is None:
         return apology("Invalid symbol", 400)
     
-    return render_quoted_template(lookup_result)
+    return render_quoted_template(iex_api_data)
 
-def render_quoted_template(lookup_result):
-    name = lookup_result["name"]
-    symbol = lookup_result["symbol"]
-    price = usd(lookup_result["price"])
+def render_quoted_template(iex_api_data):
+    name = iex_api_data["name"]
+    symbol = iex_api_data["symbol"]
+    price = usd(iex_api_data["price"])
+    
     return render_template("quoted.html", name=name, symbol=symbol, price=price)
 
 def render_quote_form():
