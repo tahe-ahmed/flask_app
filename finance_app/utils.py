@@ -34,21 +34,17 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
-def lookup(symbol):
-    """Look up quote for symbol."""
-    # Contact API
+def lookup_iex_api(symbol):
+    IEX_URL = f"https://api.iex.cloud/v1/data/core/quote/{str(symbol)}?token={API_KEY}"
     try:
-        api_key = API_KEY,
-        response = requests.get(f"https://api.iex.cloud/v1/data/core/quote/{str(symbol)}?token={ list(api_key)[0]}")
+        response = requests.get(IEX_URL)
         response.raise_for_status()
     except requests.RequestException as e:
         print("error : ", e)
         return None
 
-    # Parse response
     try:
         quote = response.json()[0]
-        print("quote : ", quote)
         return {
             "name": quote["companyName"],
             "price": float(quote["latestPrice"]),

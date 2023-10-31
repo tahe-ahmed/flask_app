@@ -1,5 +1,5 @@
 from flask import request, render_template, Blueprint
-from finance_app.utils import apology, lookup, usd, login_required
+from finance_app.utils import apology, lookup_iex_api, usd, login_required
 
 quote_blueprint = Blueprint('quote', __name__, template_folder='templates', url_prefix='')
 
@@ -13,7 +13,7 @@ def quote():
 
 def handle_quote_post():
     symbol = request.form.get("symbol")
-    lookup_result = lookup(symbol)
+    lookup_result = lookup_iex_api(symbol)
     
     if lookup_result is None:
         return apology("Invalid symbol", 400)

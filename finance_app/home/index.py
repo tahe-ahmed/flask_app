@@ -19,10 +19,13 @@ def show_portfolio():
     total_holdings = calculate_holdings(buy_transactions, sell_transactions)
 
     # Calculate available cash
+    # we can use get_user_cash here
     available_cash = calculate_available_cash(INITIAL_CASH, total_holdings)
 
     return render_template("index.html", stocks=total_holdings, available_cash=usd(available_cash), cash=usd(INITIAL_CASH))
 
+
+# Pure function
 def get_user_transactions(db, user_id, operation_name):
     query = """
         SELECT symbol, shares, price
@@ -31,6 +34,9 @@ def get_user_transactions(db, user_id, operation_name):
     """
     return db.execute(query, (user_id, operation_name)).fetchall()
 
+
+
+# This is a pure function 
 def calculate_holdings(buy_transactions, sell_transactions):
     symbol_totals = {}
     
@@ -49,13 +55,17 @@ def calculate_holdings(buy_transactions, sell_transactions):
 
     # Filter out stocks with zero shares
     symbol_totals = {symbol: data for symbol, data in symbol_totals.items() if data['shares'] > 0}
-    # symbol_totals.update( , total_price)
     
-    for symbol_to_update in symbol_totals:
-        symbol_totals[symbol_to_update]['total_price'] = usd(symbol_totals[symbol_to_update]['total_price'])
+    for data in symbol_totals.values():
+        data['total_price'] = usd(data['total_price'])
     
     return symbol_totals
 
 def calculate_available_cash(initial_cash, holdings):
+    
+    # query DB for the current user cash it should be equ
+    
+    
+    
     used_cash = sum( float(data['total_price'][1:]) for data in holdings.values())
     return initial_cash - used_cash

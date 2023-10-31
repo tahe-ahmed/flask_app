@@ -1,5 +1,5 @@
 from flask import request, redirect, render_template, Blueprint
-from finance_app.utils import apology, lookup, login_required, is_valid_shares, add_transaction, update_cash, get_user_cash
+from finance_app.utils import apology, lookup_iex_api, login_required, is_valid_shares, add_transaction, update_cash, get_user_cash
 from finance_app.db import get_db
 
 buy_blueprint = Blueprint('buy', __name__, template_folder='templates', url_prefix='')
@@ -17,7 +17,7 @@ def handle_buy_post():
     symbol = request.form.get("symbol")
     shares = int(request.form.get("shares"))
     
-    lookup_result = lookup(symbol)
+    lookup_result = lookup_iex_api(symbol)
     
     if lookup_result is None:
         return apology("Invalid symbol", 400)
