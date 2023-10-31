@@ -9,7 +9,6 @@
   <thead>
     <tr>
       <th >Symbol</th>
-      <th>Name</th>
       <th>Shares</th>
       <th>Price</th>
       <th>TOTAL</th>
@@ -19,7 +18,6 @@
     {% for symbol, stock_data in stocks.items() %}
         <tr>
             <td>{{ symbol }}</td>
-            <td>tahe</td>
             <td>{{ stock_data['shares'] }}</td>
             <td>{{ stock_data['price_per_share'] }}</td>
             <td>{{ stock_data['total_price'] }}</td>
@@ -27,13 +25,13 @@
     {% endfor %}
     <tr>
         <td>CASH</td>
-        <td colspan="3"></td>
+        <td colspan="2"></td>
         <td>{{ available_cash }}</td>
     </tr>
   </tbody>
   <tfoot>
   <tr>
-    <td colspan="4"></td>
+    <td colspan="3"></td>
     <th>{{ cash }}</th>
   </tr>
   </tfoot>

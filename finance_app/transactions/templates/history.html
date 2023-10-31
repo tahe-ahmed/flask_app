@@ -9,7 +9,6 @@
   <thead>
     <tr>
       <th scope="col">Symbol</th>
-      <th scope="col">Name</th>
       <th scope="col">Operation</th>
       <th scope="col">Shares</th>
       <th scope="col">Price</th>
@@ -20,7 +19,6 @@
       {% for stock in stocks %}
     <tr>
       <th scope="row">{{ stock.symbol }}</th>
-      <td>{{ stock.name }}</td>
       <td>{{ stock.operation_name }}</td>
       {% if stock.operation_name=="SELL"%}
         <td>-{{ stock.shares }}</td>
