@@ -6,6 +6,7 @@ on:
 jobs:
   build:
     name: Create Release
+    if: contains(github.event.head_commit.message, 'release')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -18,3 +19,4 @@ jobs:
         with:
           tag_name: ${{ github.run_number }}
           release_name: Release ${{ github.run_number }}
+          body: 'Automated release from commit: ${{ github.sha }}'
