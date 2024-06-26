@@ -1,11 +1,11 @@
+name: Create Release
+
 on:
   branches:
       - main
     types:
       - pushed
-
-name: Create Release
-
+      
 jobs:
   build:
     name: Create Release
