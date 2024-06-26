@@ -17,7 +17,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: "release-v${{ github.event.repository.name }}-${{ env.SHORT_SHA }}-$(date +'%Y%m%d')"
-          release_name: "Release ${{ github.event.repository.name }} ${{ env.SHORT_SHA }} $(date +'%Y-%m-%d')"
+          tag_name: ${{ github.run_number }}
+          release_name: Release ${{ github.run_number }}
           body: 'Automated release from commit: ${{ github.sha }}'
-          prerelease: false
