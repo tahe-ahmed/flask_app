@@ -4,6 +4,7 @@
 
 **User Registration and Login:**
 
+lets goo
 ✅ 1. As a new investor, I want to be able to register for the finance app so that I can create an account.
 
 ✅ 2. As a registered investor, I want to be able to log in to my account securely.
