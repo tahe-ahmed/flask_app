@@ -1,11 +1,8 @@
 name: Create Release
-
 on:
-  branches:
+  push:
+    branches:
       - main
-    types:
-      - pushed
-      
 jobs:
   build:
     name: Create Release
